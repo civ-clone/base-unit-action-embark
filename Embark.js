@@ -12,7 +12,6 @@ class Embark extends Move_1.default {
         const [targetVessel] = unitRegistry
             .getByTile(this.to())
             .filter((tileUnit) => tileUnit instanceof NavalTransport_1.default)
-            // @ts-ignore
             .filter((tileUnit) => tileUnit.hasCapacity());
         if (!targetVessel) {
             return false;
