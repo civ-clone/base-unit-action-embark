@@ -1,4 +1,3 @@
-import { Moved, IMovedRegistry } from '@civ-clone/core-unit/Rules/Moved';
 import {
   RuleRegistry,
   instance as ruleRegistryInstance,
@@ -8,6 +7,7 @@ import Busy from '@civ-clone/core-unit/Rules/Busy';
 import Criterion from '@civ-clone/core-rule/Criterion';
 import { ITransport } from '@civ-clone/core-unit-transport/Transport';
 import Move from '@civ-clone/base-unit-action-move/Move';
+import Moved from '@civ-clone/core-unit/Rules/Moved';
 import Tile from '@civ-clone/core-world/Tile';
 import Unit from '@civ-clone/core-unit/Unit';
 
@@ -36,11 +36,7 @@ export class Embark extends Move {
     this.unit().setBusy(new Busy(new Criterion((): boolean => false)));
     this.unit().setActive(false);
 
-    (this.ruleRegistry() as IMovedRegistry).process(
-      Moved,
-      this.unit(),
-      this as Action
-    );
+    this.ruleRegistry().process(Moved, this.unit(), this as Action);
 
     return true;
   }

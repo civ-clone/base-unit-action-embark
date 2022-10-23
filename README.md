@@ -1,4 +1,3 @@
 # base-unit-action-embark
 
-This is a template repo.
-
+This package provides the `Embark` `Action` for `Unit`s.
