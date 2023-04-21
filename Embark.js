@@ -14,10 +14,9 @@ var _Embark_transport;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Embark = void 0;
 const RuleRegistry_1 = require("@civ-clone/core-rule/RuleRegistry");
-const Busy_1 = require("@civ-clone/core-unit/Rules/Busy");
-const Criterion_1 = require("@civ-clone/core-rule/Criterion");
 const Move_1 = require("@civ-clone/base-unit-action-move/Move");
 const Moved_1 = require("@civ-clone/core-unit/Rules/Moved");
+const Stowed_1 = require("./Busy/Stowed");
 class Embark extends Move_1.default {
     constructor(from, to, unit, transport, ruleRegistry = RuleRegistry_1.instance) {
         super(from, to, unit, ruleRegistry);
@@ -28,8 +27,8 @@ class Embark extends Move_1.default {
         if (!super.perform()) {
             return false;
         }
-        __classPrivateFieldGet(this, _Embark_transport, "f").stow(this.unit());
-        this.unit().setBusy(new Busy_1.default(new Criterion_1.default(() => false)));
+        __classPrivateFieldGet(this, _Embark_transport, "f").stow(this.unit(), this.from());
+        this.unit().setBusy(new Stowed_1.default());
         this.unit().setActive(false);
         this.ruleRegistry().process(Moved_1.default, this.unit(), this);
         return true;
